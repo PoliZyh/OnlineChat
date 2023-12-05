@@ -1,0 +1,39 @@
+$block-sel: "-" !default;
+$element-sel: "__" !default;
+$modifier-sel: "--" !default;
+$namespace:'oc' !default;
+@mixin bfc {
+    height: 100%;
+    overflow: hidden;
+}
+ 
+//混入
+@mixin b($block) {
+   $B: $namespace + $block-sel + $block; //变量
+   .#{$B}{ //插值语法#{}
+     @content; //内容替换
+   }
+}
+ 
+@mixin flex {
+    display: flex;
+}
+ 
+@mixin e($element) {
+    $selector:&;
+    @at-root {
+        #{$selector + $element-sel + $element} {
+            @content;
+        }
+    }
+}
+ 
+@mixin m($modifier) {
+    $selector:&;
+    @at-root {
+        #{$selector + $modifier-sel + $modifier} {
+            @content;
+        }
+    }
+}
+

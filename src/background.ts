@@ -5,6 +5,7 @@ app.whenReady().then(() => {
     const win = new BrowserWindow({
         height: 700,
         width: 1200,
+        titleBarStyle: 'hiddenInset',
         webPreferences: {
             nodeIntegration: true, // 可以在渲染进程中使用node的api，为了安全默认是不允许的
             contextIsolation: false, // 关闭渲染进程的沙箱
