@@ -7,21 +7,25 @@
             <div class="oc-menu__menu-item">
                 <SvgIcon 
                 icon="chat" width="26px" height="26px" class="icon" 
+                :color="activeKey == 'ChatHome' ? '#2aa515' : ''"
                 @click="handleRouter('ChatHome')"></SvgIcon>
             </div>
             <div class="oc-menu__menu-item">
                 <SvgIcon 
-                icon="user" width="26px" height="26px" class="icon"
+                icon="user" width="26px" height="26px" class="icon" 
+                :color="activeKey == 'Friends' ? '#1296db' : ''"
                 @click="handleRouter('Friends')"></SvgIcon>
             </div>
             <div class="oc-menu__menu-item">
                 <SvgIcon 
-                icon="space" width="26px" height="26px" class="icon"
+                icon="space" width="26px" height="26px" class="icon" 
+                :color="activeKey == 'Space' ? '#ea9518' : ''"
                 @click="handleRouter('Space')"></SvgIcon>
             </div>
             <div class="oc-menu__menu-item">
                 <SvgIcon 
                 icon="video" width="26px" height="26px" class="icon"
+                :color="activeKey == 'World' ? '#1196db' : ''"
                 @click="handleRouter('World')"></SvgIcon>
             </div>
         </div>
@@ -35,10 +39,13 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 const router = useRouter();
+const activeKey = ref<string>('ChatHome')
 
 const handleRouter = (routeName: string) => {
+    activeKey.value = routeName;
     router.push({
         name: routeName
     })
@@ -51,6 +58,7 @@ const handleRouter = (routeName: string) => {
 .icon {
     cursor: pointer;
 }
+
 @include b('menu') {
     height: 100%;
     width: 100%;

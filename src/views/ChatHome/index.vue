@@ -1,5 +1,7 @@
 <template>
-    ChatHome
+    <div>
+        fill="#515151" 
+    </div>
 </template>
 
 

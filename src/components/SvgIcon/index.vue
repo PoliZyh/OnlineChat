@@ -1,6 +1,6 @@
 <template>
-    <svg :class="iconClass" aria-hidden="true" :style="{width, height}">
-        <use :xlink:href="iconName" :fill="color"></use>
+    <svg :class="iconClass" aria-hidden="true" :style="{width, height, color}">
+        <use :xlink:href="iconName" :fill="color" class="use"></use>
     </svg>
 </template>
   
@@ -40,3 +40,10 @@ const styleExternalIcon = computed(() => ({
 const iconName = computed(() => `#icon-${props.icon}`)
 
 </script>
+
+
+<style scoped lang="scss">
+.use {
+  transition: all .3s;
+}
+</style>
