@@ -2,7 +2,6 @@
 *:after,
 *:before {
     box-sizing: border-box;
-
     outline: none;
 }
 
@@ -89,12 +88,9 @@ audio,
 video {
     font: inherit;
     font-size: 100%;
-
     margin: 0;
     padding: 0;
-
     vertical-align: baseline;
-
     border: 0;
 }
 
@@ -160,7 +156,6 @@ textarea,
 button {
     font-family: inhert;
     font-size: inherit;
-
     color: inherit;
 }
 
