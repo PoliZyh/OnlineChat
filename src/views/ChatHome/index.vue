@@ -9,7 +9,10 @@
                 <ChatList :list="list" :activeId="activeItemId"></ChatList>
             </div>
         </div>
-        <div class="oc-chathome__right"></div>
+        <div class="oc-chathome__right">
+            <ChatRoom v-if="activeItemId" :toId="activeItemId"></ChatRoom>
+            <Empty description="木有数据，快去和小伙伴们聊天吧～" v-show="!activeItemId"></Empty>
+        </div>
     </div>
 </template>
 
