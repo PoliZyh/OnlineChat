@@ -22,6 +22,7 @@ import ChatList from './components/ChatList/index.vue'
 import { onUnmounted, ref } from 'vue';
 import type { IChatList } from './components/ChatList/type';
 import $bus from '@/utils/bus';
+import { MessageType } from '@/components/ChatRoom/type';
 
 const list = ref<IChatList>([
     {
@@ -33,11 +34,15 @@ const list = ref<IChatList>([
         unreadNum: 12,
         lastInfo: { 
             username: '张三',
-            content: '你好呀',
+            content: {
+                type: MessageType.Text,
+                inner: '你好，我是张三'
+            },
             time: '下午12:00',
             id: 1,
-            formId: 1,
-            toId: 2
+            fromId: 1,
+            toId: 2,
+            userava: 'https://i.postimg.cc/Znt1jWYF/user.jpg'
         }
     },
     {
@@ -49,11 +54,15 @@ const list = ref<IChatList>([
         unreadNum: 5,
         lastInfo: { 
             username: '张三',
-            content: '你好呀',
+            content: {
+                type: MessageType.Text,
+                inner: '你好，我是张三'
+            },
             time: '下午12:00',
             id: 1,
-            formId: 1,
-            toId: 2
+            fromId: 1,
+            toId: 2,
+            userava: 'https://i.postimg.cc/Znt1jWYF/user.jpg'
         }
     },
     {
@@ -65,11 +74,15 @@ const list = ref<IChatList>([
         unreadNum: 2,
         lastInfo: { 
             username: '张三',
-            content: '你好呀你好呀你好呀你好呀你好呀你好呀你好呀你好呀',
+            content: {
+                type: MessageType.Text,
+                inner: '你好呀你好呀你好呀你好呀你好呀你好呀你好呀你好呀'
+            },
             time: '下午12:00',
             id: 1,
-            formId: 1,
-            toId: 2
+            fromId: 1,
+            toId: 2,
+            userava: 'https://i.postimg.cc/Znt1jWYF/user.jpg'
         }
     },
     {
@@ -81,11 +94,15 @@ const list = ref<IChatList>([
         unreadNum: 1000,
         lastInfo: { 
             username: '张三',
-            content: '你好呀',
+            content: {
+                type: MessageType.Text,
+                inner: '你好，我是张三'
+            },
             time: '下午12:00',
             id: 1,
-            formId: 1,
-            toId: 2
+            fromId: 1,
+            toId: 2,
+            userava: 'https://i.postimg.cc/Znt1jWYF/user.jpg'
         }
     }
 ])

@@ -18,7 +18,7 @@
             </div>
             <div class="oc-list-item__bottom">
                 <div class="oc-list-item__info">
-                    {{ info.lastInfo.username }}: {{ info.lastInfo.content }}
+                    {{ info.lastInfo.username }}: {{ info.lastInfo.content.inner }}
                 </div>
                 <div class="oc-list-item__status" :class="getStatusClass()">
                     <!-- 正常模式/免打扰模式/特别关心 -->
