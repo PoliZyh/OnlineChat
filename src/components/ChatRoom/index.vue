@@ -22,16 +22,7 @@ import RoomTitle from './components/RoomTitle/index.vue'
 import ChatInfoList from './components/ChatInfoList/index.vue'
 import Editor from './components/Editor/index.vue'
 import { MessageType, type IChatRoom } from './type'
-import { ref } from 'vue'
-
-interface Props {
-    toId: number;
-}
-
-const props = withDefaults(
-    defineProps<Props>(),
-    {}
-)
+import { ref, onMounted } from 'vue'
 
 
 const chatRoom = ref<IChatRoom>({
@@ -112,6 +103,13 @@ const chatRoom = ref<IChatRoom>({
             userava: 'https://i.postimg.cc/Znt1jWYF/user.jpg'
         }
     ]
+})
+
+
+
+
+onMounted(() => {
+    // TODO 通过params拿到roomID
 })
 
 

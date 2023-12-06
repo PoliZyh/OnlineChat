@@ -10,8 +10,9 @@
             </div>
         </div>
         <div class="oc-chathome__right">
-            <ChatRoom v-if="activeItemId" :toId="activeItemId"></ChatRoom>
-            <Empty description="木有数据，快去和小伙伴们聊天吧～" v-show="!activeItemId"></Empty>
+            <router-view #="{ Component }">
+                <component :is="Component" v-if="isShowChatRoom" />
+            </router-view>
         </div>
     </div>
 </template>
@@ -19,11 +20,15 @@
 
 <script setup lang="ts">
 import ChatList from './components/ChatList/index.vue'
-import { onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, nextTick } from 'vue';
 import type { IChatList } from './components/ChatList/type';
 import $bus from '@/utils/bus';
 import { MessageType } from '@/components/ChatRoom/type';
+import { useRouter, useRoute } from 'vue-router';
+import { async } from 'fast-glob';
 
+const router = useRouter();
+const route = useRoute();
 const list = ref<IChatList>([
     {
         id: 1, // 聊天列表项ID
@@ -109,8 +114,29 @@ const list = ref<IChatList>([
 
 const activeItemId = ref<number | null>(null)
 
-$bus.on('changeActiveItemId', (newId: any) => {
+$bus.on('changeActiveItemId', async (newId: any) => {
     activeItemId.value = newId as number
+    router.push({
+        name: 'ChatOnHome',
+        params: {
+            id: newId as number
+        }
+    })
+    await refresh()
+})
+
+const isShowChatRoom = ref<boolean>(true)
+const refresh = async () => {
+    isShowChatRoom.value = false
+    await nextTick()
+    isShowChatRoom.value = true
+}
+
+
+
+onMounted(() => {
+    const id = route.params.id as any
+    activeItemId.value = parseInt(id) as number
 })
 
 onUnmounted(() => {

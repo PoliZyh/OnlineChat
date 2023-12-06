@@ -10,7 +10,19 @@ const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'chat-home',
                 name: 'ChatHome',
-                component: () => import('@/views/ChatHome/index.vue')
+                component: () => import('@/views/ChatHome/index.vue'),
+                children: [
+                    {
+                        path: '',
+                        name: 'Default',
+                        component: () => import('@/views/ChatHome/components/Default/index.vue')
+                    },
+                    {
+                        path: ':id',
+                        name: 'ChatOnHome',
+                        component: () => import('@/components/ChatRoom/index.vue')
+                    }
+                ]
             },
             {
                 path: 'friends',
