@@ -7,8 +7,8 @@
             <div class="oc-menu__menu-item">
                 <SvgIcon 
                 icon="chat" width="26px" height="26px" class="icon" 
-                :color="activeKey == 'ChatHome' ? '#2aa515' : ''"
-                @click="handleRouter('ChatHome')"></SvgIcon>
+                :color="activeKey == 'Default' ? '#2aa515' : ''"
+                @click="handleRouter('Default')"></SvgIcon>
             </div>
             <div class="oc-menu__menu-item">
                 <SvgIcon 
@@ -42,7 +42,7 @@ import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 
 const router = useRouter();
-const activeKey = ref<string>('ChatHome')
+const activeKey = ref<string>('Default')
 
 const handleRouter = (routeName: string) => {
     activeKey.value = routeName;
