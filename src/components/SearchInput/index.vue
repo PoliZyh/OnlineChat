@@ -21,8 +21,10 @@
         border: none;
         outline: none;
         padding: 8px 40px;
+        padding-right: 15px;
         border-radius: 6px;
         font-size: 0.8rem;
+        width: 100%;
     }
     @include e('icon') {
         position: absolute;

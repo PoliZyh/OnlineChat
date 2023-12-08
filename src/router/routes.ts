@@ -27,7 +27,30 @@ const constantRoutes: Array<RouteRecordRaw> = [
             {
                 path: 'friends',
                 name: 'Friends',
-                component: () => import('@/views/Friends/index.vue')
+                component: () => import('@/views/Friends/index.vue'),
+                redirect: '/friends/friends-default',
+                children: [
+                    {
+                        path: 'friends-default',
+                        name: 'FriendsDefault',
+                        component: () => import('@/views/Friends/components/Default/index.vue')
+                    },
+                    {
+                        path: 'new-friend',
+                        name: 'NewFriend',
+                        component: () => import('@/views/Friends/components/NewFriend/index.vue')
+                    },
+                    {
+                        path: 'new-group',
+                        name: 'NewGroup',
+                        component: () => import('@/views/Friends/components/NewGroup/index.vue')
+                    },
+                    {
+                        path: ':id',
+                        name: 'FriendsInfo',
+                        component: () => import('@/views/Friends/components/Details/index.vue')
+                    }
+                ]
             },
             {
                 path: 'space',

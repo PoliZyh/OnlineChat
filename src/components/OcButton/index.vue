@@ -38,6 +38,8 @@ const btnClass = () => {
         border-radius: 5px;
         cursor: pointer;
         animation: .1s;
+        justify-content: center;
+        align-items: center;
         @include m(pain) {}
 
         @include m(primary) {
