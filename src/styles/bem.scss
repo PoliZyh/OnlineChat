@@ -21,6 +21,11 @@ $namespace:'oc' !default;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+// 溢出滚动
+@mixin overflow-scroll {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
  
 @mixin flex {
     display: flex;

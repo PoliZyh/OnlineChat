@@ -43,7 +43,70 @@ const applies = ref<IApplyFriendList>([
         time: '2021-06-06 12:00:00',
         status: ApplyFriendStatus.Reject,
         userId: 3
-    }
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
+    {
+        id: 1,
+        username: 'zhangsan',
+        userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        description: '想加你好友',
+        time: '2021-06-06 12:00:00',
+        status: ApplyFriendStatus.Pass,
+        userId: 1
+    },
 ]);
 
 </script>
@@ -57,5 +120,6 @@ const applies = ref<IApplyFriendList>([
     @include flex;
     flex-direction: column;
     gap: 20px;
+    @include overflow-scroll;
 }
 </style>
