@@ -51,6 +51,15 @@ const btnClass = () => {
                 background-color: $oc-color-primary-light-3;
             }
         }
+        @include m(danger) {
+            color: white;
+            background-color: $oc-color-danger;
+            outline-color: $oc-color-danger-dark-2;
+            border-color: $oc-color-danger;
+            &:hover {
+                background-color: $oc-color-danger-light-3;
+            }
+        }
     }
 
 

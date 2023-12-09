@@ -24,3 +24,20 @@ export interface IGroup {
     type: ListType; // 用户/群聊
     list: IUserGroup;
 }
+
+// 新朋友申请
+export enum ApplyFriendStatus {
+    Pass = 0,
+    Reject = 1,
+    Padding = 2
+}
+export interface IApplyFriendItem {
+    id: number; // 申请项的ID
+    username: string;
+    userava: string;
+    status: ApplyFriendStatus;
+    description: string;
+    userId: number;
+    time: string;
+}
+export type IApplyFriendList = Array<IApplyFriendItem>
