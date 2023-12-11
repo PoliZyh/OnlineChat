@@ -14,7 +14,7 @@
         </div>
         <div class="oc-new-friend-card__ops">
             <template v-if="info.status === ApplyFriendStatus.Padding">
-                <OcButton type="primary">接收</OcButton>
+                <OcButton type="primary">接受</OcButton>
                 <OcButton type="danger">拒绝</OcButton>
             </template>
             <template v-if="info.status === ApplyFriendStatus.Pass">

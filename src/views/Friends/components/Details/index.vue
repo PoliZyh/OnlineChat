@@ -1,6 +1,7 @@
 <template>
     <div class="oc-details">
-        details
+        <div class="oc-details__header">
+        </div>
     </div>
 </template>
 
@@ -13,5 +14,12 @@
 @include b(details) {
     width: 100%;
     height: 100%;
+    background-color: white;
+    @include e(header) {
+        width: 100%;
+        height: 40%;
+        background-image: url('../../../../assets/images/bg.jpeg');
+        background-repeat: no-repeat;
+    }
 }
 </style>
