@@ -99,7 +99,7 @@ export interface IUserInfo {
     userava: string;
     qAge: number;
     account: number;
-    phoneNum?: number;
+    phoneNum?: string;
     hometown?: string; // 家乡
     career?: string; // 职业
     sex?: Sex; // 性别
