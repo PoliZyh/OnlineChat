@@ -29,7 +29,8 @@ export default defineConfig(() => {
           additionalData: "@import './src/styles/bem.scss'; @import './src/styles/variables.scss';"
         }
       }
-    }
+    },
+    
   }
 })
   
