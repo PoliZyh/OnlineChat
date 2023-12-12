@@ -5,14 +5,19 @@ import ChatRoom from './ChatRoom/index.vue'
 import OcButton from './OcButton/index.vue'
 import OcTextarea from './OcTextarea/index.vue'
 import PushpinCard from './PushpinCard/index.vue'
+import OcDialog from './OcDialog/index.vue'
+import DotBackground from './DotBackground/index.vue'
+import OcInput from './OcInput/index.vue'
 
 import type { App, Component } from 'vue';
 
 
 const components: { [name: string]: Component } = { 
     SvgIcon, SearchInput, Empty, ChatRoom, OcButton,
-    OcTextarea, PushpinCard
+    OcTextarea, PushpinCard, OcDialog, DotBackground,
+    OcInput
 };
+
 export default {
     install(app: App) {
         Object.keys(components).forEach((key: string) => {

@@ -43,6 +43,7 @@
         <div class="oc-friends__right">
             <router-view></router-view>
         </div>
+        <OcDialog></OcDialog>
     </div>
 </template>
 

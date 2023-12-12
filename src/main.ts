@@ -18,4 +18,6 @@ const app = createApp(App)
 app.use(router).use(pinia)
 app.use(gloablComponent)
 
+import './permission'
+
 app.mount('#app')
