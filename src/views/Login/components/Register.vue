@@ -2,24 +2,27 @@
     <div class="oc-register">
         <h4>Register</h4>
         <div class="oc-register__row">
-            <OcInput label="用户名" type="text"></OcInput>
+            <OcInput label="用户名" type="text" v-model:value="registerFrom.username"></OcInput>
         </div>
         <div class="oc-register__row">
-            <OcInput label="密码" type="password"></OcInput>
+            <OcInput label="密码" type="password" v-model:value="registerFrom.password"></OcInput>
         </div>
         <div class="oc-register__row">
-            <OcInput label="确认密码" type="password"></OcInput>
+            <OcInput label="确认密码" type="password" v-model:value="registerFrom.checkPassword"></OcInput>
         </div>
         <div class="oc-register__row">
-            <OcInput label="验证码"></OcInput>
+            <OcInput label="验证码" v-model:value="registerFrom.code"></OcInput>
             <div class="oc-register__code">
                 <img :src="imgUrl" alt="captcha" @click="handleChangeCaptcha">
             </div>
         </div>
         <div class="oc-register__row">
             <span class="oc-register__link" @click="handleToLogin">已有账号.</span>
+            <span class="oc-register__link" style="margin-left: 20px;" v-if="account" @click="handleCopy">
+                您的账号为: {{ account }}
+            </span>
         </div>
-        <button class="oc-register__submit">
+        <button class="oc-register__submit" @click="handleRegister">
             注册
         </button>
     </div>
@@ -27,9 +30,20 @@
 
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+import type { IRegisterForm } from '../type'
+import { userRegisterReq } from '@/api/user/index'
+import { showMessage } from '@/components/OcMessage';
+import { async } from 'fast-glob';
 
 const imgUrl = ref<string>(import.meta.env.VITE_APP_BASE_API + '/users/captcha')
+const registerFrom = reactive<IRegisterForm>({
+    username: '',
+    password: '',
+    checkPassword: '',
+    code: ''
+})
+const account = ref('')
 
 const emits = defineEmits<{
     (e: 'changeComponent'): void
@@ -41,6 +55,37 @@ const handleToLogin = () => {
 
 const handleChangeCaptcha = () => {
     imgUrl.value = import.meta.env.VITE_APP_BASE_API + '/users/captcha?t=' + new Date().getTime()
+}
+
+const handleRegister = async () => {
+    try {
+        const res = await userRegisterReq(registerFrom)
+        if (res.code === 200) {
+            showMessage({
+                type: 'success',
+                message: '注册成功'
+            })
+            account.value = res.data.account
+        } else {
+            showMessage({
+                type: 'error',
+                message: res.msg
+            })
+        }
+    } catch (err) {
+        showMessage({
+            type: 'error',
+            message: '注册失败'
+        })
+    }
+}
+
+const handleCopy = async () => {
+    await navigator.clipboard.writeText(account.value)
+    showMessage({
+        type: 'success',
+        message: '账号已复制到黏贴板'
+    })
 }
 </script>
 
@@ -91,6 +136,7 @@ const handleChangeCaptcha = () => {
         top: 5%;
         height: 90%;
         width: 100px;
+
         img {
             height: 100%;
             width: 100%;
@@ -122,6 +168,7 @@ const handleChangeCaptcha = () => {
             box-shadow: -5px 6px 20px 0px rgba(88, 88, 88, 0.569);
         }
     }
+
     @include e(link) {
         font-size: 0.8rem;
         color: $oc-color-primary;
