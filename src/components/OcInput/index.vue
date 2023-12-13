@@ -76,7 +76,7 @@ const handleChange = (e: Event) => {
         }
     }
     @include e('label') {
-        color: $oc-color-primary;
+        color: black;
         position: absolute;
         left: 20px;
         transition: all 0.3s;
@@ -88,6 +88,7 @@ const handleChange = (e: Event) => {
             background-color: white;
             top: 0px;
             left: 40px;
+            color: $oc-color-primary;
         }
     }
 }
