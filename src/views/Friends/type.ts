@@ -3,9 +3,10 @@
 // 用户组
 // 
 export interface IUserGroupListItem {
-    id: number;
+    id: number; // 用户的ID
     username: string;
     userava: string;
+    userId: number;
     isOnline?: boolean;
     onLineNum?: number;
 }

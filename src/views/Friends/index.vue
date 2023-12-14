@@ -48,10 +48,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import List from './components/List/index.vue'
 import { type IUserGroup, ListType } from './type';
 import { useRouter } from 'vue-router';
+import { getFriendsListReq } from '@/api/friend';
+import { showMessage } from '@/components/OcMessage';
+import useUserStore from '@/store/modules/useUserStore';
 
 
 const checkedItem = ref<ListType>(0)
@@ -59,27 +62,52 @@ const checkedItemChange = (itemNum: ListType) => {
     checkedItem.value = itemNum
 }
 const router = useRouter()
+const userStore = useUserStore()
 
-const list = ref<IUserGroup>([
-    {
-        id: 1,
-        groupName: '他们',
-        groupList: [
-            {
-                id: 1,
-                username: '小明',
-                userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-                isOnline: true
-            },
-            {
-                id: 2,
-                username: '小红',
-                userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-                isOnline: false
-            }
-        ]
+const getFriendsList = async () => {
+    try {
+        const res = await getFriendsListReq(userStore.userInfo!.id)
+        if (res.code == 200) {
+            list.value = res.data
+            showMessage({
+                type: 'success',
+                message: res.msg
+            })
+        }
+        
+    } catch (err) {
+        showMessage({
+            type: 'error',
+            message: '获取好友列表失败'
+        })
     }
-])
+    
+}
+
+// const list = ref<IUserGroup>([
+//     {
+//         id: 1,
+//         groupName: '他们',
+//         groupList: [
+//             {
+//                 id: 1,
+//                 username: '小明',
+//                 userId: 1,
+//                 userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+//                 isOnline: true
+//             },
+//             {
+//                 id: 2,
+//                 username: '小红',
+//                 userId: 1,
+//                 userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+//                 isOnline: false
+//             }
+//         ]
+//     }
+// ])
+
+const list = ref<IUserGroup>([])
 
 
 const handleRouter = (name: string) => {
@@ -87,6 +115,10 @@ const handleRouter = (name: string) => {
         name: name
     })
 }
+
+onMounted(() => {
+    getFriendsList()
+})
 
 </script>
 

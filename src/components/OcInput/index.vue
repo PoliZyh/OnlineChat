@@ -70,6 +70,8 @@ const handleChange = (e: Event) => {
         width: 100%;
         transition: all 0.3s;
         border-radius: 0;
+        background-color: transparent;
+        z-index: 0;
         @include m(active) {
             border: 1px solid $oc-color-primary;
             border-radius: 5px;
@@ -89,6 +91,7 @@ const handleChange = (e: Event) => {
             top: 0px;
             left: 40px;
             color: $oc-color-primary;
+            z-index: 1;
         }
     }
 }

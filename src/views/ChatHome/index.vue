@@ -25,7 +25,6 @@ import type { IChatList } from './components/ChatList/type';
 import $bus from '@/utils/bus';
 import { MessageType } from '@/components/ChatRoom/type';
 import { useRouter, useRoute } from 'vue-router';
-import { async } from 'fast-glob';
 
 const router = useRouter();
 const route = useRoute();

@@ -1,7 +1,7 @@
 <template>
     <div class="oc-menu">
         <div class="oc-menu__userava">
-            <img src="../../assets/images/user.jpeg" alt="">
+            <img :src="userStore.userInfo?.userava" alt="">
         </div>
         <div class="oc-menu__menus">
             <div class="oc-menu__menu-item">
@@ -40,8 +40,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import useUserStore from '@/store/modules/useUserStore';
 
 const router = useRouter();
+const userStore = useUserStore()
 const activeKey = ref<string>('Default')
 
 const handleRouter = (routeName: string) => {
