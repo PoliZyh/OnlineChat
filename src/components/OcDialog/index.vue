@@ -1,7 +1,7 @@
 <template>
     <Teleport to="body">
-        <div class="oc-dialog" v-show="props.value">
-            <div class="oc-dialog__inner-dialog">
+        <div class="oc-dialog" v-if="props.value" @click="handleClickBody">
+            <div class="oc-dialog__inner-dialog" @click="handleClickDialog">
                 <div class="oc-dialog__title">
                     <p v-if="props.title">{{ props.title }}</p>
                     
@@ -11,7 +11,7 @@
                     <slot></slot>
                 </div>
                 <div class="oc-dialog__footer">
-                    
+                    <slot name="footer"></slot>
                 </div>
             </div>
         </div>
@@ -27,6 +27,10 @@ interface Props {
     value?: boolean;
 }
 
+const emits = defineEmits<{
+    (e: 'update:value', value: boolean): void
+}>()
+
 const props = withDefaults(
     defineProps<Props>(),
     {
@@ -34,6 +38,15 @@ const props = withDefaults(
         value: false,
     }
 );
+
+const handleClickBody = (e: Event) => {
+    e.stopPropagation()
+    emits('update:value', false)
+}
+
+const handleClickDialog = (e: Event) => {
+    e.stopPropagation()
+}
 </script>
 
 
@@ -49,23 +62,25 @@ const props = withDefaults(
     z-index: 10000;
     @include e('inner-dialog') {
         background-color: white;
-        width: 45%;
+        width: 40%;
         padding: 20px 10px;
         position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        margin-top: 15vh;
+        margin: 15vh auto;
+        position: relative;
     }
     @include e('title') {
         padding: 0px 0px 10px 0px;
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: 400;
     }
     @include e('content') {
         padding: 20px 0px;
     }
     @include e('footer') {
-        padding: 10px 0px 0px 0px;
+        padding: 10px 10px 0px 0px;
+        @include flex;
+        justify-content: flex-end;
     }
 }
 </style>

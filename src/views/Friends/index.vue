@@ -25,7 +25,8 @@
                 <div class="oc-friends__list-title">
                     <div class="oc-friends__list-title-item"
                     :class="checkedItem === ListType.Friends ? 'oc-friends__list-title-item--active' : ''"
-                    @click="checkedItemChange(ListType.Friends)">
+                    @click="checkedItemChange(ListType.Friends)"
+                    @contextmenu.prevent="handleContextMenuOnList">
                         好友
                     </div>
                     <div class="oc-friends__list-title-item"
@@ -43,7 +44,30 @@
         <div class="oc-friends__right">
             <router-view></router-view>
         </div>
-        <OcDialog></OcDialog>
+        <OcDialog v-model:value="isShowFriendsDialog" title="管理分组">
+            <div class="oc-friends__check">
+                <div class="oc-friends__check-item"
+                :class="dialogCheck ? 'oc-friends__check-item--active' : ''"
+                @click="dialogCheck = true">
+                    新增分组
+                </div>
+                <div class="oc-friends__check-item"
+                :class="!dialogCheck ? 'oc-friends__check-item--active' : ''"
+                @click="dialogCheck = false">
+                    删除分组
+                </div>
+            </div>
+            <div class="oc-friends__add-group" v-if="dialogCheck">
+                分组名称
+                <input type="text" v-model="dialogParams.groupName">
+            </div>
+            <template #footer >
+                <div class="oc-friends__confirm">
+                    <OcButton type="primary" @click="handleConfirm">确认</OcButton>
+                    <OcButton @click="isShowFriendsDialog = false">取消</OcButton>
+                </div>
+            </template>
+        </OcDialog>
     </div>
 </template>
 
@@ -52,10 +76,14 @@ import { onMounted, ref } from 'vue';
 import List from './components/List/index.vue'
 import { type IUserGroup, ListType } from './type';
 import { useRouter } from 'vue-router';
-import { getFriendsListReq } from '@/api/friend';
+import { getFriendsListReq, addFriendsGroupReq } from '@/api/friend';
 import { showMessage } from '@/components/OcMessage';
 import useUserStore from '@/store/modules/useUserStore';
 
+
+interface IDialogParams {
+    groupName: string;
+}
 
 const checkedItem = ref<ListType>(0)
 const checkedItemChange = (itemNum: ListType) => {
@@ -63,6 +91,12 @@ const checkedItemChange = (itemNum: ListType) => {
 }
 const router = useRouter()
 const userStore = useUserStore()
+const isShowFriendsDialog = ref<boolean>(false)
+const dialogCheck = ref<boolean>(true)
+const dialogParams = ref<IDialogParams>({
+    groupName: ''
+})
+
 
 const getFriendsList = async () => {
     try {
@@ -109,11 +143,33 @@ const getFriendsList = async () => {
 
 const list = ref<IUserGroup>([])
 
+// 确认添加分组
+const handleConfirm = async () => {
+    if (dialogCheck.value) {
+        // 新增分组
+        const res = await addFriendsGroupReq(userStore.userInfo!.id, dialogParams.value.groupName)
+        showMessage({
+            type: res.data ? 'success' : 'error',
+            message: res.msg
+        })
+        if (res.data) {
+            // 刷新列表
+            getFriendsList()
+        }
+    }
+    isShowFriendsDialog.value = false
+}
+
 
 const handleRouter = (name: string) => {
     router.push({
         name: name
     })
+}
+
+const handleContextMenuOnList = () => {
+    console.log('contextmenu')
+    isShowFriendsDialog.value = true
 }
 
 onMounted(() => {
@@ -129,11 +185,45 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     flex-wrap: nowrap;
+    @include e(check) {
+        width: 100%;
+        @include flex;
+        flex-wrap: nowrap;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+    }
+    @include e('check-item') {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        &:hover {
+            border-bottom: 1px solid $oc-color-primary;
+        }
+        @include m('active') {
+            color: $oc-color-primary;
+            border-bottom: 1px solid $oc-color-primary;
+        }
+    }
     @include e(left) {
         height: 100%;
         width: $friends-list-width;
         @include flex;
         flex-direction: column;
+    }
+    @include e('add-group') {
+        width: 100%;
+        font-size: 0.8rem;
+        input {
+            padding: 5px;
+            margin-left: 5px;
+            outline: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            transition: all 0.2s;
+            &:focus {
+                border-color: $oc-color-primary;
+            }
+        }
     }
     @include e(search) {
         padding: 10px 10px;
@@ -198,6 +288,10 @@ onMounted(() => {
     @include e('lists') {
         width: 100%;
         flex: 1;
+    }
+    @include e(confirm) {
+        @include flex;
+        gap: 10px;
     }
 
 }

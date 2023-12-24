@@ -5,3 +5,9 @@ import type { IUserGroup } from '@/views/Friends/type'
 export interface IFriendsListResponseData extends IResponseData {
     data: IUserGroup;
 }
+
+
+// 新增朋友分组接口
+export interface IFriendsAddGroupReqData extends IResponseData {
+    data: boolean;
+}
