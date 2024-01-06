@@ -9,6 +9,7 @@ import OcDialog from './OcDialog/index.vue'
 import DotBackground from './DotBackground/index.vue'
 import OcInput from './OcInput/index.vue'
 import OcMessage from './OcMessage/index.vue'
+import OcSelect from './OcSelect/index.vue'
 
 import type { App, Component } from 'vue';
 
@@ -16,7 +17,7 @@ import type { App, Component } from 'vue';
 const components: { [name: string]: Component } = { 
     SvgIcon, SearchInput, Empty, ChatRoom, OcButton,
     OcTextarea, PushpinCard, OcDialog, DotBackground,
-    OcInput, OcMessage
+    OcInput, OcMessage, OcSelect
 };
 
 export default {

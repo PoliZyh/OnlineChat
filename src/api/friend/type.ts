@@ -11,3 +11,8 @@ export interface IFriendsListResponseData extends IResponseData {
 export interface IFriendsAddGroupReqData extends IResponseData {
     data: boolean;
 }
+
+// 删除朋友分组接口
+export interface IFriendsDeleteGroupReqData extends IResponseData {
+    data: boolean;
+}

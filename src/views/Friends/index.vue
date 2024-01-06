@@ -61,6 +61,12 @@
                 分组名称
                 <input type="text" v-model="dialogParams.groupName">
             </div>
+            <div class="oc-friends__del-group" v-else>
+                删除分组
+                <OcSelect
+                :options="list.map(item => ({ label: item.groupName, value: '' + item.id }))"
+                v-model:value="dialogParams.delId"></OcSelect>
+            </div>
             <template #footer >
                 <div class="oc-friends__confirm">
                     <OcButton type="primary" @click="handleConfirm">确认</OcButton>
@@ -76,13 +82,14 @@ import { onMounted, ref } from 'vue';
 import List from './components/List/index.vue'
 import { type IUserGroup, ListType } from './type';
 import { useRouter } from 'vue-router';
-import { getFriendsListReq, addFriendsGroupReq } from '@/api/friend';
+import { getFriendsListReq, addFriendsGroupReq, deleteFriendsGroupReq } from '@/api/friend';
 import { showMessage } from '@/components/OcMessage';
 import useUserStore from '@/store/modules/useUserStore';
 
 
 interface IDialogParams {
     groupName: string;
+    delId: string;
 }
 
 const checkedItem = ref<ListType>(0)
@@ -92,10 +99,12 @@ const checkedItemChange = (itemNum: ListType) => {
 const router = useRouter()
 const userStore = useUserStore()
 const isShowFriendsDialog = ref<boolean>(false)
-const dialogCheck = ref<boolean>(true)
+const dialogCheck = ref<boolean>(true) // 是否为新增分组 否则删除
 const dialogParams = ref<IDialogParams>({
-    groupName: ''
+    groupName: '',
+    delId: ''
 })
+const list = ref<IUserGroup>([])
 
 
 const getFriendsList = async () => {
@@ -118,32 +127,9 @@ const getFriendsList = async () => {
     
 }
 
-// const list = ref<IUserGroup>([
-//     {
-//         id: 1,
-//         groupName: '他们',
-//         groupList: [
-//             {
-//                 id: 1,
-//                 username: '小明',
-//                 userId: 1,
-//                 userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-//                 isOnline: true
-//             },
-//             {
-//                 id: 2,
-//                 username: '小红',
-//                 userId: 1,
-//                 userava: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
-//                 isOnline: false
-//             }
-//         ]
-//     }
-// ])
 
-const list = ref<IUserGroup>([])
 
-// 确认添加分组
+// 确认添加分组或删除分组
 const handleConfirm = async () => {
     if (dialogCheck.value) {
         // 新增分组
@@ -154,6 +140,16 @@ const handleConfirm = async () => {
         })
         if (res.data) {
             // 刷新列表
+            getFriendsList()
+        }
+    } else {
+        // 删除分组
+        const res = await deleteFriendsGroupReq(userStore.userInfo!.id, parseInt(dialogParams.value.delId))
+        showMessage({
+            type: res.data?'success' : 'error',
+            message: res.msg
+        })
+        if (res.data) {
             getFriendsList()
         }
     }
@@ -168,7 +164,10 @@ const handleRouter = (name: string) => {
 }
 
 const handleContextMenuOnList = () => {
-    console.log('contextmenu')
+    Object.assign(dialogParams.value, {
+        groupName: '',
+        delId: ''
+    })
     isShowFriendsDialog.value = true
 }
 
@@ -217,13 +216,20 @@ onMounted(() => {
             padding: 5px;
             margin-left: 5px;
             outline: none;
-            border: 1px solid black;
-            border-radius: 5px;
+            border: none;
+            border-bottom: 1px solid $oc-border-color;
             transition: all 0.2s;
             &:focus {
                 border-color: $oc-color-primary;
             }
         }
+    }
+    @include e('del-group') {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 0.8rem;
     }
     @include e(search) {
         padding: 10px 10px;
