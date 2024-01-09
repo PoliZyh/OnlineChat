@@ -7,6 +7,7 @@
         :class="isActive ? 'oc-input__inner-input--active' : ''"
         @blur="handleFocus"
         @input="handleChange"
+        :placeholder="placeholder"
         :value="value">
     </div>
 </template>
@@ -21,6 +22,7 @@ interface Props {
     label: string;
     value: string;
     type: 'password' | 'text';
+    placeholder?: string;
 }
 
 const props = withDefaults(

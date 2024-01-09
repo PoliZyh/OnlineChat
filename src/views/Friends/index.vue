@@ -6,7 +6,7 @@
                     <SearchInput></SearchInput>
                 </div>
                 <div class="oc-friends__search-right">
-                    <OcButton type="primary">
+                    <OcButton type="primary" @click="handleAddFriendsOrGroups">
                         添加
                     </OcButton>
                 </div>
@@ -44,6 +44,7 @@
         <div class="oc-friends__right">
             <router-view></router-view>
         </div>
+        <!-- 新增分组dialog -->
         <OcDialog v-model:value="isShowFriendsDialog" title="管理分组">
             <div class="oc-friends__check">
                 <div class="oc-friends__check-item"
@@ -74,12 +75,15 @@
                 </div>
             </template>
         </OcDialog>
+        <!-- 新增好友dialog -->
+        <AddDialog v-model:value="isShowAddDialog" title="添加好友/群组"></AddDialog>
     </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import List from './components/List/index.vue'
+import AddDialog from './components/AddDialog/index.vue'
 import { type IUserGroup, ListType } from './type';
 import { useRouter } from 'vue-router';
 import { getFriendsListReq, addFriendsGroupReq, deleteFriendsGroupReq } from '@/api/friend';
@@ -105,6 +109,7 @@ const dialogParams = ref<IDialogParams>({
     delId: ''
 })
 const list = ref<IUserGroup>([])
+const isShowAddDialog = ref<boolean>(false)
 
 
 const getFriendsList = async () => {
@@ -125,6 +130,11 @@ const getFriendsList = async () => {
         })
     }
     
+}
+
+// 添加好友或者群组
+const handleAddFriendsOrGroups = () => {
+    isShowAddDialog.value = true
 }
 
 
